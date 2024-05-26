@@ -1,0 +1,53 @@
+ .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.course-page-heading {
+  text-align: center; 
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  flex: 1 1 300px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  margin-bottom: 5px;
+} 
+
+.card hr {
+  margin: 10px -20px; 
+  border-top: 1px solid black;
+  width: calc(100% + 40px); 
+}
+
+.image {
+  position: absolute;
+  bottom: 0px;
+  left: -85px;
+}
