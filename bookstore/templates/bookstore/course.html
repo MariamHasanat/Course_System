@@ -17,7 +17,11 @@
                 <p class="card-text"><strong>Description: </strong> {{ item.description }}</p>
                 <p class="card-text"><strong>Course Code: </strong> {{ item.code }}</p>
                 <p class="card-text"><strong>Schedule: </strong> {{ item.schedule }}</p>
-                <p class="card-text"><strong>Prerequisites: </strong> {{ item.prerequisites }}</p>
+                <p class="card-text"><strong>Prerequisites: </strong> 
+                    {% for itm in item.prerequisites.name %}
+                       {{itm.name}},
+                    {% endfor %}
+                </p>
                 <p class="card-text"><strong>Capacity: </strong> {{ item.capacity }}</p>
             </div>
         </div>

@@ -12,18 +12,26 @@ class Student(models.Model):
     def __str__(self):
         return self.name 
 
+class CourseCategory(models.Model):
+    code = models.CharField(max_length=10, unique=True)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class Course(models.Model):
-    code = models.CharField(max_length=10, unique=True, primary_key=True, null=False, default='TEMP_CODE')
+    code = models.CharField(max_length=10, unique=True, primary_key=True)
     name = models.CharField(max_length=100, null=True)
     description = models.TextField(null=True)
     instructor = models.CharField(max_length=100, null=True)
     schedule = models.ForeignKey('CourseSchedule', on_delete=models.CASCADE, null=True)
-    prerequisites = models.ManyToManyField('self', blank=True, symmetrical=False)
+    category = models.ForeignKey(CourseCategory, on_delete=models.CASCADE, null=True)  # Fixed error
+    prerequisites = models.ManyToManyField(CourseCategory, related_name='required_courses')  # ManyToManyField for prerequisites
     capacity = models.IntegerField(null=True)
 
     def __str__(self):
         return self.name
+
     
 class CourseSchedule(models.Model):
     id = models.AutoField(primary_key=True, null=False, default=None)
