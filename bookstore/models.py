@@ -11,7 +11,8 @@ class Student(models.Model):
     
     def __str__(self):
         return self.name 
-    
+
+
 class Course(models.Model):
     code = models.CharField(max_length=10, unique=True, primary_key=True, null=False, default='TEMP_CODE')
     name = models.CharField(max_length=100, null=True)
