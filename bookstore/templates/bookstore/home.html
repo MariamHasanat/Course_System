@@ -3,16 +3,31 @@
   
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-<div class="container">
+<link rel="stylesheet" type="text/css" href="{% static 'css/course.css' %}">
+
     <h2 class="course-page-heading">Home Page</h2>
-    
-    <form onsubmit="event.preventDefault();" role="search">
-        <label for="search">Search for stuff</label>
-        <input id="search" type="search" placeholder="Search..." autofocus required />
-        <button type="submit">Go</button>    
-    </form>
-    
-    <img src="{% static 'images/3119295.webp' %}" class="image" alt="register-image">
+    {% comment %} <img src="{% static 'images/3119295.webp' %}" class="image" alt="register-image"> {% endcomment %}
+
+        <div class="container">
+            <div class="card-container">
+                {% for item in courses %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <hr>
+                        <p class="card-text"><strong>Instructor: </strong> {{ item.instructor }}</p>
+                        <p class="card-text"><strong>Course Code: </strong> {{ item.code }}</p>
+                        <p class="card-text"><strong>Capacity: </strong> {{ item.capacity }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <form action='' method='GET'>
+                {% csrf_token %}
+                {{searchFilter.form}}
+                <button type="submit">Search</button>    
+            </form>
+
 </div>
 
 {% endblock content %}

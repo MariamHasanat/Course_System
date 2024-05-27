@@ -5,9 +5,17 @@ from .forms import *
 from django.contrib.auth import authenticate , login
 from django.contrib import messages 
 from django.contrib.auth.models import Group
+from .filters import *
 
 def home(request):
-   return render(request, "bookstore/home.html")
+    courses = Course.objects.all()
+    searchFilter = CoursesFilter(request.GET, queryset=courses)
+    courses = searchFilter.qs
+    context = {
+        'courses' : courses,
+        'searchFilter' : searchFilter
+    }
+    return render(request, "bookstore/home.html", context)
 
 def dash(request):
    return render(request, "bookstore/dash.html")
