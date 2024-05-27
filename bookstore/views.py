@@ -42,16 +42,16 @@ def login(request):
         return render(request, "bookstore/login.html", context) 
 
 def register(request):
-        form=  CreateNewUser() 
+        form = CreateNewUser() 
         if request.method =='POST':
-            form= CreateNewUser(request.POST)
+            form = CreateNewUser(request.POST)
             if form.is_valid():                  
                 user=form.save() 
                 username= form.cleaned_data.get('username')
-                group= Group.objects.get(name="customer") 
+                group= Group.objects.get(name="students") 
                 user.groups.add(group) 
-                messages.success(request, username +"created succeffuly") 
+                messages.success(request, username +"created successfully") 
                 return redirect('home')    
         context= {'form':form} 
-        return render(request, 'bookstore/login.html', context) 
+        return render(request, 'bookstore/signup.html', context) 
 
