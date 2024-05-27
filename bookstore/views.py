@@ -7,6 +7,9 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 
 def home(request):
+   return render(request, "bookstore/home.html")
+
+def dash(request):
    return render(request, "bookstore/dash.html")
 
 def users(request):

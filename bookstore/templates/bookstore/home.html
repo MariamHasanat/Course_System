@@ -1,0 +1,18 @@
+{% extends "bookstore/main.html" %}
+{% load static %}
+  
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+<div class="container">
+    <h2 class="course-page-heading">Home Page</h2>
+    
+    <form onsubmit="event.preventDefault();" role="search">
+        <label for="search">Search for stuff</label>
+        <input id="search" type="search" placeholder="Search..." autofocus required />
+        <button type="submit">Go</button>    
+    </form>
+    
+    <img src="{% static 'images/3119295.webp' %}" class="image" alt="register-image">
+</div>
+
+{% endblock content %}
