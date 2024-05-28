@@ -16,3 +16,8 @@ class CreateNewUser(UserCreationForm):
         model = User
         fields = ['username', 'password1', 'password2', 'email']
 
+class LogInUser(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
