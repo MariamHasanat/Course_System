@@ -27,31 +27,34 @@ def course(request):
     course = Course.objects.all()
     return render(request, "bookstore/course.html", {"course":course})
 
+
 def login(request):
-        if request.method =='POST': 
-            print("entered login function ")
-            username =request.POST.get('username') 
-            password =request.POST.get('password') 
-            user= authenticate(request, username=username , password= password) 
-            if user is not None: 
-                login(request, user) 
-                return redirect('home') 
-            else:
-                messages.info(request, "Credentails error") 
-        context= {} 
-        return render(request, "bookstore/login.html", context) 
+    if request.method =='POST': 
+        print("entered login function ")
+        username =request.POST.get('username') 
+        password =request.POST.get('password') 
+        user= authenticate(request, username=username , password= password) 
+        if user is not None: 
+            login(request, user) 
+            return redirect('home') 
+        else:
+            messages.info(request, "Credentails error") 
+    context= {} 
+    return render(request, "bookstore/login.html", context) 
+
+
 
 def register(request):
         form = CreateNewUser() 
         if request.method =='POST':
             form = CreateNewUser(request.POST)
             if form.is_valid():                  
-                user=form.save() 
-                username= form.cleaned_data.get('username')
-                group= Group.objects.get(name="students") 
-                user.groups.add(group) 
-                messages.success(request, username +"created successfully") 
-                return redirect('home')    
+                form.save() 
+                # username= form.cleaned_data.get('username')
+                # group= Group.objects.get(name="students") 
+                # user.groups.add(group) 
+                # messages.success(request, username +"created successfully") 
+                return redirect('../home/')    
         context= {'form':form} 
-        return render(request, 'bookstore/signup.html', context) 
+        return render(request, 'bookstore/signup.html', context=context) 
 

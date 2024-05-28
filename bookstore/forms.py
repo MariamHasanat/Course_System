@@ -13,6 +13,6 @@ class CourseForm(forms.ModelForm):
 
 class CreateNewUser(UserCreationForm):
     class Meta:
-        model =User
-        fields ='__all__' 
+        model = User
+        fields = ['username', 'password1', 'password2', 'email']
 
