@@ -8,7 +8,8 @@ class Student(models.Model):
     name = models.CharField( max_length=90, null=True)
     email= models.EmailField( max_length=90, null=True)
     password = models.CharField(max_length=50, null=True)
-    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    is_active = models.BooleanField(default=True)
     def __str__(self):
         return self.name 
 

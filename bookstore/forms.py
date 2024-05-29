@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.models import User
 from django import forms
-from .models import Course
+from .models import *
 
 class CourseForm(forms.ModelForm):
     class Meta:
@@ -13,6 +13,11 @@ class CourseForm(forms.ModelForm):
 
 class CreateNewUser(UserCreationForm):
     class Meta:
-        model =User
-        fields ='__all__' 
+        model = User
+        fields = ['username', 'password1', 'password2', 'email']
+
+class LogInUser(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
 

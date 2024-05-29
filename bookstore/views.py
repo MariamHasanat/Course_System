@@ -4,16 +4,20 @@ from .models import *
 from .forms import * 
 from django.contrib.auth import authenticate , login
 from django.contrib import messages 
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import *
+from django.contrib.auth.decorators import login_required 
 from .filters import *
 
+@login_required(login_url='login')
 def home(request):
+    user= Student.objects.get()
     courses = Course.objects.all()
     searchFilter = CoursesFilter(request.GET, queryset=courses)
     courses = searchFilter.qs
     context = {
         'courses' : courses,
-        'searchFilter' : searchFilter
+        'searchFilter' : searchFilter,
+        'user': user
     }
     return render(request, "bookstore/home.html", context)
 
@@ -27,31 +31,33 @@ def course(request):
     course = Course.objects.all()
     return render(request, "bookstore/course.html", {"course":course})
 
+
+
 def login(request):
-        if request.method =='POST': 
-            print("entered login function ")
-            username =request.POST.get('username') 
-            password =request.POST.get('password') 
-            user= authenticate(request, username=username , password= password) 
-            if user is not None: 
-                login(request, user) 
-                return redirect('home') 
-            else:
-                messages.info(request, "Credentails error") 
-        context= {} 
-        return render(request, "bookstore/login.html", context) 
+    if request.method =='POST': 
+        # print("entered login function ")
+        username =request.POST.get('username') 
+        password =request.POST.get('password') 
+        user= authenticate(request, username=username , password= password) 
+        if user is not None: 
+            context = {
+                'user' : username,
+            }
+            return redirect('../home/', context = context)  
+        else:
+            messages.info(request, "Credentails error") 
+    context= {} 
+    return render(request, "bookstore/login.html", context) 
+
+
 
 def register(request):
-        form = CreateNewUser() 
+        form = CreateNewUser()
         if request.method =='POST':
             form = CreateNewUser(request.POST)
             if form.is_valid():                  
-                user=form.save() 
-                username= form.cleaned_data.get('username')
-                group= Group.objects.get(name="students") 
-                user.groups.add(group) 
-                messages.success(request, username +"created successfully") 
-                return redirect('home')    
+                form.save() 
+                return redirect('../home/')    
         context= {'form':form} 
-        return render(request, 'bookstore/signup.html', context) 
+        return render(request, 'bookstore/signup.html', context=context) 
 
