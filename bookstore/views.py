@@ -21,10 +21,10 @@ def home(request):
     }
     return render(request, "bookstore/home.html", context)
 
+
 @login_required(login_url='login')
 def dash(request):
-    user= Student.objects.get()
-    return render(request, "bookstore/dash.html", {'user':user})
+    return redirect('../login/')
 
 @login_required(login_url='login')
 def users(request):
