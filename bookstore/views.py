@@ -21,15 +21,21 @@ def home(request):
     }
     return render(request, "bookstore/home.html", context)
 
+
+@login_required(login_url='login')
 def dash(request):
-   return render(request, "bookstore/dash.html")
+    return redirect('../login/')
 
+@login_required(login_url='login')
 def users(request):
-    return render(request, "bookstore/users.html")
+    user= Student.objects.get()
+    return render(request, "bookstore/users.html", {'user':user})
 
+@login_required(login_url='login')
 def course(request):
+    user= Student.objects.get()
     course = Course.objects.all()
-    return render(request, "bookstore/course.html", {"course":course})
+    return render(request, "bookstore/course.html", {"course":course, 'user': user})
 
 
 
