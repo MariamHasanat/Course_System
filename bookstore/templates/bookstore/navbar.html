@@ -9,16 +9,16 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
-          {% if request.user.is_staff %}
+          {% comment %} {% if request.user.is_staff %} {% endcomment %}
           <li class="nav-item">
             {% comment %} <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a> {% endcomment %}
           </li>
           <li class="nav-item">
             {% comment %} <a class="nav-link" href="{% url "book" %}">Book</a> {% endcomment %}
           </li>   
-          {% endif %}
+          {% comment %} {% endif %} {% endcomment %}
           <li class="nav-item">
-            <a class="nav-link" href="#">{{request.user}}</a>
+            <a class="nav-link" href="#">{{user}}</a>
           </li>
           <li class="nav-item">
             {% comment %} <a class="nav-link" href="{% url "logout" %}">LogOut</a> {% endcomment %}

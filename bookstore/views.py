@@ -8,14 +8,16 @@ from django.contrib.auth.models import *
 from django.contrib.auth.decorators import login_required 
 from .filters import *
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def home(request):
+    user= Student.objects.get()
     courses = Course.objects.all()
     searchFilter = CoursesFilter(request.GET, queryset=courses)
     courses = searchFilter.qs
     context = {
         'courses' : courses,
         'searchFilter' : searchFilter,
+        'user': user
     }
     return render(request, "bookstore/home.html", context)
 
@@ -38,7 +40,10 @@ def login(request):
         password =request.POST.get('password') 
         user= authenticate(request, username=username , password= password) 
         if user is not None: 
-            return redirect('../home/')  
+            context = {
+                'user' : username,
+            }
+            return redirect('../home/', context = context)  
         else:
             messages.info(request, "Credentails error") 
     context= {} 
