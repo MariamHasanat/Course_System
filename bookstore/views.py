@@ -4,16 +4,18 @@ from .models import *
 from .forms import * 
 from django.contrib.auth import authenticate , login
 from django.contrib import messages 
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import *
+from django.contrib.auth.decorators import login_required 
 from .filters import *
 
+# @login_required(login_url='login')
 def home(request):
     courses = Course.objects.all()
     searchFilter = CoursesFilter(request.GET, queryset=courses)
     courses = searchFilter.qs
     context = {
         'courses' : courses,
-        'searchFilter' : searchFilter
+        'searchFilter' : searchFilter,
     }
     return render(request, "bookstore/home.html", context)
 
@@ -36,7 +38,7 @@ def login(request):
         password =request.POST.get('password') 
         user= authenticate(request, username=username , password= password) 
         if user is not None: 
-            return redirect('../home/') 
+            return redirect('../home/')  
         else:
             messages.info(request, "Credentails error") 
     context= {} 
@@ -45,7 +47,7 @@ def login(request):
 
 
 def register(request):
-        form = CreateNewUser() 
+        form = CreateNewUser()
         if request.method =='POST':
             form = CreateNewUser(request.POST)
             if form.is_valid():                  
